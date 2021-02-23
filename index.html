@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Game Review</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <script>
+      $(document).ready(function(){
+        var review,comment,reviewCorrect;
+        $("#submit").click(function(){
+          review=$("#review").val();
+          comment=$("#comment").val();
+          $.post("http://localhost:3000/feedback/sessionId/",{review: review,comment: comment}, function(data){
+            if(data === 'yes') {
+                alert("review success");
+              }
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Hi Ubi tester</h1>
+    <p>Leave a review from 1 to 5</p>
+    <input type="TEXT" id="review" size="40"><br>
+    <p>Leave a short comment (Optionnal)</p>
+    <input type="TEXT" id="comment" size="40"><br>
+    <input type="button" id="submit" value="Submit">
+  </body>
+</html>
