@@ -10,9 +10,10 @@ Néanmoins, on peut tester l'application facilement. J'ai déjà entré 5 champs
 Les prochains que vous rentrer commence avec un sessionId bidon = 0, incrémenté de 1 par clique.
 Simplement entrer cliquer sur le bouton "Submit" avec un review et avec ou sans commentaire pour ajouter un document à la collection.
 pour avoir les 15 review les plus récent, tester avec l'url suivant : http://localhost:3000/getlast15reviews pour avoir les (jusqu'à) 15 reviews les plus récents.
-Si l'interface ne plait pas, utiliser un logicel en ligne comme postman avec l'url suivant : http://localhost:3000/feedback/"sessionid" (donner le session Id voulu)
+Si l'interface ne plait pas, utiliser un logicel en ligne comme postman avec l'url suivant(post) : http://localhost:3000/feedback/"sessionId" 
+en choisissant un sessionId arbitraire, ajoutant l'objet {review:"review",comment:"comment"} dans le body/content
 
-Database Design : une seule collection comme-ci : 
+Database Design : une seule collection contenant des documents comme-ci : 
       sessionId: {
       type: String,
       required: true,
@@ -30,7 +31,11 @@ Database Design : une seule collection comme-ci :
         required: true
       }
       });
+      la request pour sauvergarder est triviale, celle pour aller chercher les 15 reviews les plus récents est celle-ci:
+      .find().sort({created_at:  -1}).limit(15)
 
-API design: 2 route, /feedback/"sessionId" avec review et comment dans le body et le Ubi-userId (simulé par un UUID) dans le header
- et GET /getlast15reviews , sans payload.
+      Le tout hosté dans Mango Db atlas
+
+API design: 2 route, POST /feedback/"sessionId" avec review et comment dans le body et le Ubi-userId (simulé par un UUID) dans le header
+ et GET /getlast15reviews , sans payload. (vu la simplicité du microservice, je me suis permi de ne pas utiliser Swagger)
  
