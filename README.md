@@ -33,7 +33,6 @@ Database Design : une seule collection contenant des documents comme-ci :
       });
       la request pour sauvergarder est triviale, celle pour aller chercher les 15 reviews les plus récents est celle-ci:
       .find().sort({created_at:  -1}).limit(15)
-
       Le tout hosté dans Mango Db atlas
 
 API design: 2 route, POST /feedback/"sessionId" avec review et comment dans le body et le Ubi-userId (simulé par un UUID) dans le header
